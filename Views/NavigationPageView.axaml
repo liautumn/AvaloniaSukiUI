@@ -1,0 +1,66 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.NavigationPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:NavigationPageViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="34,26,34,40" Spacing="22">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="page-title" Text="{Binding Title}" />
+                <TextBlock Classes="page-description" Text="{Binding Description}" />
+            </StackPanel>
+            <suki:GlassCard Padding="20">
+                <suki:GroupBox Header="TabControl">
+                    <TabControl SelectedIndex="{Binding SelectedTab}">
+                        <TabItem Header="概览"><TextBlock Margin="18" Text="TabItem 一：概览内容" /></TabItem>
+                        <TabItem Header="设置"><TextBlock Margin="18" Text="TabItem 二：设置内容" /></TabItem>
+                        <TabItem Header="日志"><TextBlock Margin="18" Text="TabItem 三：日志内容" /></TabItem>
+                    </TabControl>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard Padding="20">
+                <suki:GroupBox Header="SplitView">
+                    <SplitView MinHeight="190"
+                               DisplayMode="Inline"
+                               IsPaneOpen="{Binding IsPaneOpen, Mode=OneWay}"
+                               OpenPaneLength="190"
+                               PaneBackground="{DynamicResource SukiCardBackground}">
+                        <SplitView.Pane>
+                            <StackPanel Margin="10" Spacing="6">
+                                <Button Classes="Basic" HorizontalContentAlignment="Left" Content="菜单项一" />
+                                <Button Classes="Basic" HorizontalContentAlignment="Left" Content="菜单项二" />
+                                <Button Classes="Basic" HorizontalContentAlignment="Left" Content="菜单项三" />
+                            </StackPanel>
+                        </SplitView.Pane>
+                        <SplitView.Content>
+                            <StackPanel Margin="20" Spacing="12">
+                                <Button HorizontalAlignment="Left"
+                                        Classes="Accent"
+                                        Content="切换侧栏"
+                                        Command="{Binding TogglePaneCommand}" />
+                                <TextBlock Text="SplitView 内容区域" />
+                            </StackPanel>
+                        </SplitView.Content>
+                    </SplitView>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <WrapPanel>
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="Expander">
+                        <Expander Header="向下展开"><TextBlock Margin="0,12,0,0" Text="展开内容" /></Expander>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="GridSplitter">
+                        <Grid Height="150" RowDefinitions="*,4,*">
+                            <Border Background="{DynamicResource SukiPrimaryColor3}"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="区域 A" /></Border>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+                            <Border Grid.Row="2" Background="{DynamicResource SukiPrimaryColor1}"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="区域 B" /></Border>
+                        </Grid>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

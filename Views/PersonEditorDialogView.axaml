@@ -1,0 +1,62 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.PersonEditorDialogView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels"
+             xmlns:content="using:SukiUI.Content"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:PersonEditorDialogViewModel">
+    <StackPanel Width="440" Margin="6" Spacing="18">
+        <TextBlock FontSize="20" FontWeight="DemiBold" Text="{Binding Title}" />
+
+        <Grid ColumnDefinitions="90,*"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+              RowSpacing="12">
+            <TextBlock VerticalAlignment="Center" Text="用户姓名 *" />
+            <TextBox Grid.Column="1"
+                     PlaceholderText="请输入用户姓名"
+                     Text="{Binding Name, Mode=TwoWay}" />
+
+            <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="用户编号 *" />
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     PlaceholderText="例如 USR-019"
+                     Text="{Binding Code, Mode=TwoWay}" />
+
+            <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="所属团队 *" />
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      ItemsSource="{Binding Teams}"
+                      SelectedItem="{Binding SelectedTeam, Mode=TwoWay}" />
+
+            <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="用户状态 *" />
+            <ComboBox Grid.Row="3" Grid.Column="1"
+                      ItemsSource="{Binding Statuses}"
+                      SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" />
+
+            <TextBlock Grid.Row="4" VerticalAlignment="Top" Margin="0,9,0,0" Text="备注" />
+            <TextBox Grid.Row="4" Grid.Column="1"
+                     Height="78"
+                     AcceptsReturn="True"
+                     MaxLength="200"
+                     PlaceholderText="请输入备注（选填）"
+                     Text="{Binding Notes, Mode=TwoWay}"
+                     TextWrapping="Wrap" />
+        </Grid>
+
+        <suki:InfoBar IsOpen="{Binding HasError}"
+                      Message="{Binding ValidationMessage}"
+                      Severity="Error"
+                      Title="无法保存" />
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
+            <Button Classes="Basic"
+                    Command="{Binding CancelCommand}"
+                    Content="取消" />
+            <Button Classes="Flat"
+                    Command="{Binding SaveCommand}"
+                    Content="{Binding SubmitText}">
+                <suki:ButtonExtensions.Icon>
+                    <PathIcon Width="16" Height="16" Data="{x:Static content:Icons.Check}" />
+                </suki:ButtonExtensions.Icon>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

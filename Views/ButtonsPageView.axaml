@@ -1,0 +1,97 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.ButtonsPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels"
+             xmlns:content="using:SukiUI.Content"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:ButtonsPageViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="34,26,34,40" Spacing="22">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="page-title" Text="{Binding Title}" />
+                <TextBlock Classes="page-description" Text="{Binding Description}" />
+            </StackPanel>
+
+            <WrapPanel>
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="标准按钮">
+                        <StackPanel Spacing="12">
+                            <Button Classes="Accent" Content="主要操作" />
+                            <Button Classes="Basic" Content="基础按钮" />
+                            <Button Classes="Flat" Content="扁平按钮" />
+                            <Button Classes="Outlined" Content="描边按钮" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="语义按钮">
+                        <StackPanel Spacing="12">
+                            <Button Classes="Success" Content="成功" />
+                            <Button Classes="Information" Content="信息" />
+                            <Button Classes="Warning" Content="警告" />
+                            <Button Classes="Danger" Content="危险" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="图标与加载">
+                        <StackPanel Spacing="12">
+                            <Button Classes="Flat Icon" ToolTip.Tip="收藏">
+                                <PathIcon Width="18" Height="18" Data="{x:Static content:Icons.Star}" />
+                            </Button>
+                            <Button Classes="Rounded Flat" Content="圆角按钮" />
+                            <Button Classes="Accent"
+                                    Command="{Binding SimulateLoadingCommand}"
+                                    Content="开始加载"
+                                    suki:ButtonExtensions.ShowProgress="{Binding IsLoading}" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="下拉和分割">
+                        <StackPanel Spacing="12">
+                            <DropDownButton Content="更多操作">
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="编辑" />
+                                        <MenuItem Header="复制" />
+                                        <MenuItem Header="删除" />
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+                            <SplitButton Classes="Accent" Content="发布">
+                                <SplitButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="发布并通知" />
+                                        <MenuItem Header="保存草稿" />
+                                    </MenuFlyout>
+                                </SplitButton.Flyout>
+                            </SplitButton>
+                            <HyperlinkButton Content="查看文档"
+                                             NavigateUri="https://kikipoulet.github.io/SukiUI/" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+            </WrapPanel>
+
+            <suki:GlassCard Padding="20">
+                <suki:GroupBox Header="按钮组合">
+                    <StackPanel Spacing="14">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Classes="Accent" Content="保存" />
+                            <Button Classes="Flat" Content="另存为" />
+                            <Button Classes="Flat Icon" ToolTip.Tip="更多">
+                                <PathIcon Width="18" Height="18" Data="{x:Static content:Icons.Menu}" />
+                            </Button>
+                        </StackPanel>
+                        <ToggleButton Classes="Switch" Content="切换按钮" IsChecked="True" />
+                        <RepeatButton Content="重复按钮" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

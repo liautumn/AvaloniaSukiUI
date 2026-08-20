@@ -1,0 +1,87 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.OverviewPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels"
+             xmlns:content="using:SukiUI.Content"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:OverviewPageViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="34,26,34,40" Spacing="22">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="page-title" Text="{Binding Title}" />
+                <TextBlock Classes="page-description" Text="{Binding Description}" />
+            </StackPanel>
+
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="28">
+                <suki:GlassCard Grid.RowSpan="2" Padding="26" IsOpaque="True">
+                    <StackPanel Spacing="16">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Border Width="48" Height="48"
+                                    Background="{DynamicResource SukiPrimaryColor}"
+                                    CornerRadius="14">
+                                <PathIcon Width="25" Height="25"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static content:Icons.Star}"
+                                          Foreground="White" />
+                            </Border>
+                            <StackPanel VerticalAlignment="Center" Spacing="3">
+                                <TextBlock FontSize="20" FontWeight="DemiBold" Text="SukiUI 组件展厅" />
+                                <TextBlock Foreground="{DynamicResource SukiLowText}"
+                                           Text="可直接运行的 Avalonia 组件示例" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock MaxWidth="680"
+                                   Foreground="{DynamicResource SukiLowText}"
+                                   Text="从左侧选择分类，所有控件均可直接操作。底部选项可以实时切换主题色与明暗模式。"
+                                   TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Classes="Accent action"
+                                    Command="{Binding Shell.ShowInfoToastCommand}"
+                                    Content="显示信息通知" />
+                            <Button Classes="Flat action"
+                                    Command="{Binding Shell.OpenDialogCommand}"
+                                    Content="打开模态对话框" />
+                        </StackPanel>
+                    </StackPanel>
+                </suki:GlassCard>
+
+                <suki:GlassCard Grid.Column="1" Padding="22" MinWidth="230">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="section-label" Text="当前版本" />
+                        <TextBlock FontSize="18" FontWeight="DemiBold" Text="{Binding VersionText}" />
+                        <TextBlock Foreground="{DynamicResource SukiLowText}" Text="桌面端主题与组件" />
+                    </StackPanel>
+                </suki:GlassCard>
+                <suki:GlassCard Grid.Row="1" Grid.Column="1" Padding="22" MinWidth="230">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="section-label" Text="核心能力" />
+                        <TextBlock FontSize="18" FontWeight="DemiBold" Text="主题 · 动画 · 宿主" />
+                        <TextBlock Foreground="{DynamicResource SukiLowText}" Text="Toast、Dialog、SideMenu" />
+                    </StackPanel>
+                </suki:GlassCard>
+            </Grid>
+
+            <StackPanel Spacing="12">
+                <TextBlock Classes="section-label" Text="可用主题色" />
+                <ItemsControl ItemsSource="{Binding Shell.ColorChoices}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:ColorChoice">
+                            <Button Classes="Flat action"
+                                    Command="{Binding ApplyCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="9">
+                                    <Ellipse Width="14" Height="14"
+                                             Fill="{DynamicResource SukiPrimaryColor}" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,51 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.NotificationsPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:DataType="vm:NotificationsPageViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="34,26,34,40" Spacing="22">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="page-title" Text="{Binding Title}" />
+                <TextBlock Classes="page-description" Text="{Binding Description}" />
+            </StackPanel>
+            <suki:GlassCard Padding="20">
+                <suki:GroupBox Header="消息条">
+                    <StackPanel Spacing="14">
+                        <TextBox Text="{Binding InfoMessage}" />
+                        <suki:InfoBar IsClosable="True" IsOpen="{Binding InfoBarOpen}"
+                                      IsTextSelectable="True" Message="{Binding InfoMessage}" Title="信息" />
+                        <suki:InfoBar IsOpen="True" Message="操作已完成" Severity="Success" Title="成功" />
+                        <suki:InfoBar IsOpen="True" Message="请确认当前配置" Severity="Warning" Title="警告" />
+                        <suki:InfoBar IsOpen="True" Message="请求失败，请稍后再试" Severity="Error" Title="错误" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <WrapPanel>
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="消息弹出">
+                        <StackPanel Spacing="12">
+                            <Button Classes="Information" Content="信息 Toast" Command="{Binding Shell.ShowInfoToastCommand}" />
+                            <Button Classes="Success" Content="成功 Toast" Command="{Binding Shell.ShowSuccessToastCommand}" />
+                            <Button Classes="Warning" Content="警告 Toast" Command="{Binding Shell.ShowWarningToastCommand}" />
+                            <Button Classes="Danger" Content="错误 Toast" Command="{Binding Shell.ShowErrorToastCommand}" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Classes="demo-card">
+                    <suki:GroupBox Header="弹窗">
+                        <StackPanel Spacing="12">
+                            <Button Classes="Accent" Content="打开 Dialog" Command="{Binding Shell.OpenDialogCommand}" />
+                            <Button Classes="Outlined" Content="打开 Flyout">
+                                <Button.Flyout>
+                                    <Flyout><Border Padding="18"><TextBlock Text="Flyout 弹出内容" /></Border></Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

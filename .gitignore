@@ -1,0 +1,15 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+artifacts/
+
+# JetBrains Rider and Visual Studio
+.idea/
+.vs/
+*.suo
+*.user
+*.userprefs
+
+# Local tooling and operating system files
+.DS_Store
+*.log

@@ -1,0 +1,19 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvaloniaSukiUI.App"
+             xmlns:local="using:AvaloniaSukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             RequestedThemeVariant="Default">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+        <!-- SukiUI 放在最后，以它的控件样式为准。 -->
+        <suki:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+        <StyleInclude Source="avares://AvaloniaSukiUI/Styles/DemoStyles.axaml" />
+    </Application.Styles>
+</Application>
