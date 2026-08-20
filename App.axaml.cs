@@ -1,7 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using AvaloniaSukiUI.Views;
+using AvaloniaSukiUI.ViewModels.Shell;
+using AvaloniaSukiUI.Views.Shell;
 
 namespace AvaloniaSukiUI;
 
@@ -21,8 +22,11 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // 桌面模式只创建一个空白主窗口，后续内容从这里扩展。
-            desktop.MainWindow = new MainWindow();
+            // 桌面模式创建应用主窗口。
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = new MainWindowViewModel(),
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

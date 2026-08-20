@@ -1,0 +1,131 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.Dialogs.ThemeSettingsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enums="using:SukiUI.Enums"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels.Dialogs"
+             x:DataType="vm:ThemeSettingsViewModel"
+             Width="440">
+    <UserControl.Styles>
+        <Style Selector="ToggleButton.selection-option">
+            <Setter Property="Background" Value="{DynamicResource SukiControlTouchBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style Selector="ToggleButton.selection-option:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+        </Style>
+        <Style Selector="ToggleButton.selection-option:checked">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Spacing="24">
+        <TextBlock FontSize="20"
+                   FontWeight="DemiBold"
+                   Text="{Binding Title}" />
+
+        <!-- 浅色和深色模式。 -->
+        <StackPanel Spacing="10">
+            <TextBlock FontSize="15"
+                       FontWeight="DemiBold"
+                       Text="外观模式" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <ToggleButton Height="76"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              Classes="selection-option"
+                              Command="{Binding SelectLightThemeCommand}"
+                              IsChecked="{Binding IsLightTheme, Mode=OneWay}">
+                    <StackPanel HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <material:MaterialIcon Width="22"
+                                               Height="22"
+                                               Kind="WhiteBalanceSunny" />
+                        <TextBlock VerticalAlignment="Center" Text="浅色" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton Grid.Column="1"
+                              Height="76"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              Classes="selection-option"
+                              Command="{Binding SelectDarkThemeCommand}"
+                              IsChecked="{Binding IsDarkTheme, Mode=OneWay}">
+                    <StackPanel HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <material:MaterialIcon Width="22"
+                                               Height="22"
+                                               Kind="WeatherNight" />
+                        <TextBlock VerticalAlignment="Center" Text="深色" />
+                    </StackPanel>
+                </ToggleButton>
+            </Grid>
+        </StackPanel>
+
+        <!-- SukiUI 7.0.1 内置的四种主题色。 -->
+        <StackPanel Spacing="10">
+            <TextBlock FontSize="15"
+                       FontWeight="DemiBold"
+                       Text="主题色" />
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <ToggleButton Height="82"
+                              Classes="selection-option"
+                              Command="{Binding SelectColorThemeCommand}"
+                              CommandParameter="{x:Static enums:SukiColor.Blue}"
+                              IsChecked="{Binding IsBlueTheme, Mode=OneWay}"
+                              ToolTip.Tip="蓝色">
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <Border Width="34" Height="34" Background="#0A59F7" CornerRadius="17" />
+                        <TextBlock HorizontalAlignment="Center" FontSize="12" Text="蓝色" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton Grid.Column="1"
+                              Height="82"
+                              Classes="selection-option"
+                              Command="{Binding SelectColorThemeCommand}"
+                              CommandParameter="{x:Static enums:SukiColor.Green}"
+                              IsChecked="{Binding IsGreenTheme, Mode=OneWay}"
+                              ToolTip.Tip="绿色">
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <Border Width="34" Height="34" Background="#537834" CornerRadius="17" />
+                        <TextBlock HorizontalAlignment="Center" FontSize="12" Text="绿色" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton Grid.Column="2"
+                              Height="82"
+                              Classes="selection-option"
+                              Command="{Binding SelectColorThemeCommand}"
+                              CommandParameter="{x:Static enums:SukiColor.Red}"
+                              IsChecked="{Binding IsRedTheme, Mode=OneWay}"
+                              ToolTip.Tip="红色">
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <Border Width="34" Height="34" Background="#D03A2F" CornerRadius="17" />
+                        <TextBlock HorizontalAlignment="Center" FontSize="12" Text="红色" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton Grid.Column="3"
+                              Height="82"
+                              Classes="selection-option"
+                              Command="{Binding SelectColorThemeCommand}"
+                              CommandParameter="{x:Static enums:SukiColor.Orange}"
+                              IsChecked="{Binding IsOrangeTheme, Mode=OneWay}"
+                              ToolTip.Tip="橙色">
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <Border Width="34" Height="34" Background="#D48806" CornerRadius="17" />
+                        <TextBlock HorizontalAlignment="Center" FontSize="12" Text="橙色" />
+                    </StackPanel>
+                </ToggleButton>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

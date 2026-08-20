@@ -1,0 +1,87 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.Dialogs.StudentEditorDialogView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels.Dialogs"
+             x:DataType="vm:StudentEditorDialogViewModel"
+             Width="580">
+    <StackPanel Spacing="22">
+        <StackPanel Spacing="4">
+            <TextBlock FontSize="21"
+                       FontWeight="DemiBold"
+                       Text="{Binding DialogTitle}" />
+            <TextBlock Foreground="{DynamicResource SukiLowText}"
+                       Text="请填写完整的学生信息" />
+        </StackPanel>
+
+        <!-- 同一份表单同时服务于新增和修改，初始值由 ViewModel 决定。 -->
+        <Grid ColumnDefinitions="*,*"
+              RowDefinitions="Auto,Auto,Auto"
+              ColumnSpacing="18"
+              RowSpacing="16">
+            <StackPanel Spacing="7">
+                <TextBlock Text="学号" />
+                <TextBox Text="{Binding StudentNumber, Mode=TwoWay}"
+                         PlaceholderText="请输入学号" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Spacing="7">
+                <TextBlock Text="姓名" />
+                <TextBox Text="{Binding Name, Mode=TwoWay}"
+                         PlaceholderText="请输入姓名" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Spacing="7">
+                <TextBlock Text="性别" />
+                <ComboBox ItemsSource="{Binding GenderOptions}"
+                          SelectedItem="{Binding Gender, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Spacing="7">
+                <TextBlock Text="年龄" />
+                <NumericUpDown Minimum="6"
+                               Maximum="100"
+                               Increment="1"
+                               FormatString="0"
+                               Value="{Binding Age, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Spacing="7">
+                <TextBlock Text="年级" />
+                <TextBox Text="{Binding Grade, Mode=TwoWay}"
+                         PlaceholderText="例如：高一" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Spacing="7">
+                <TextBlock Text="班级" />
+                <TextBox Text="{Binding ClassName, Mode=TwoWay}"
+                         PlaceholderText="例如：1班" />
+            </StackPanel>
+        </Grid>
+
+        <Border Padding="12,9"
+                Background="#18D13438"
+                CornerRadius="6"
+                IsVisible="{Binding HasError}">
+            <TextBlock Foreground="#D13438"
+                       Text="{Binding ErrorMessage}"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="10">
+            <Button MinWidth="88"
+                    Command="{Binding CancelCommand}"
+                    Content="取消" />
+            <Button MinWidth="96"
+                    Classes="Primary"
+                    Command="{Binding SaveCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                    <material:MaterialIcon Width="17" Height="17" Kind="ContentSaveOutline" />
+                    <TextBlock VerticalAlignment="Center" Text="保存" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

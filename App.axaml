@@ -1,11 +1,18 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaSukiUI.App"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:local="using:AvaloniaSukiUI"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:suki="clr-namespace:SukiUI;assembly=SukiUI"
              RequestedThemeVariant="Default">
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
     <Application.Styles>
         <!-- 基础样式在前，SukiUI 主题在后覆盖控件外观。 -->
         <FluentTheme />
         <suki:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+        <material:MaterialIconStyles />
     </Application.Styles>
 </Application>

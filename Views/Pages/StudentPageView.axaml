@@ -1,0 +1,237 @@
+<UserControl x:Class="AvaloniaSukiUI.Views.Pages.StudentPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:model="using:AvaloniaSukiUI.Models"
+             xmlns:vm="using:AvaloniaSukiUI.ViewModels.Pages"
+             x:Name="StudentPageRoot"
+             x:DataType="vm:StudentPageViewModel">
+    <UserControl.Styles>
+        <!-- 表头和单元格统一居中，仅作用于当前学生表格页面。 -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="DataGridCell">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="DataGridColumnHeader TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style Selector="DataGridCell TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.icon-action">
+            <Setter Property="MinWidth" Value="34" />
+            <Setter Property="Width" Value="34" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="6" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="24,20,24,24"
+          RowDefinitions="Auto,Auto,*,Auto"
+          RowSpacing="14">
+        <StackPanel Spacing="4">
+            <TextBlock FontSize="26"
+                       FontWeight="DemiBold"
+                       Text="{Binding Title}" />
+            <TextBlock FontSize="13"
+                       Foreground="{DynamicResource SukiLowText}"
+                       Text="{Binding Description}" />
+        </StackPanel>
+
+        <!-- 搜索条件分别绑定，点击命令后才应用到列表。 -->
+        <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                <StackPanel Width="190" Margin="0,0,14,0" Spacing="6">
+                    <TextBlock Text="学号" />
+                    <TextBox Text="{Binding StudentNumberFilter, Mode=TwoWay}"
+                             PlaceholderText="请输入学号" />
+                </StackPanel>
+
+                <StackPanel Width="190" Margin="0,0,14,0" Spacing="6">
+                    <TextBlock Text="姓名" />
+                    <TextBox Text="{Binding NameFilter, Mode=TwoWay}"
+                             PlaceholderText="请输入姓名" />
+                </StackPanel>
+
+                <StackPanel Margin="0,25,0,0"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <Button MinWidth="86"
+                            Classes="Primary"
+                            Command="{Binding SearchCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <material:MaterialIcon Width="17" Height="17" Kind="Magnify" />
+                            <TextBlock VerticalAlignment="Center" Text="搜索" />
+                        </StackPanel>
+                    </Button>
+                    <Button MinWidth="86" Command="{Binding ResetCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <material:MaterialIcon Width="17" Height="17" Kind="Refresh" />
+                            <TextBlock VerticalAlignment="Center" Text="重置" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+        </WrapPanel>
+
+        <Grid Grid.Row="2" RowDefinitions="Auto,*" RowSpacing="10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Classes="Primary"
+                        Command="{Binding AddStudentCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <material:MaterialIcon Width="17" Height="17" Kind="Plus" />
+                        <TextBlock VerticalAlignment="Center" Text="新增" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding EditSelectedCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <material:MaterialIcon Width="17" Height="17" Kind="PencilOutline" />
+                        <TextBlock VerticalAlignment="Center" Text="修改" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding DeleteSelectedCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <material:MaterialIcon Width="17" Height="17" Kind="DeleteOutline" />
+                        <TextBlock VerticalAlignment="Center" Text="删除" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- 选择行双向回写 SelectedStudent，工具栏命令会据此自动启用。 -->
+            <DataGrid Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="True"
+                      CanUserSortColumns="False"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding StudentsView}"
+                      SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
+                      SelectionMode="Single">
+                <DataGrid.Columns>
+                    <!-- 模板列直接控制文本元素，避免主题模板覆盖居中设置。 -->
+                    <DataGridTemplateColumn Width="*" Header="学号">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding StudentNumber}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="姓名">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding Name}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="性别">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding Gender}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="年龄">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding Age}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="年级">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding Grade}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="班级">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           Text="{Binding ClassName}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" CanUserSort="False" Header="操作">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="model:Student">
+                                <StackPanel HorizontalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
+                                    <Button Classes="Flat icon-action"
+                                            Command="{ReflectionBinding DataContext.EditStudentCommand, ElementName=StudentPageRoot}"
+                                            CommandParameter="{Binding}"
+                                            ToolTip.Tip="修改">
+                                        <material:MaterialIcon Width="17" Height="17" Kind="PencilOutline" />
+                                    </Button>
+                                    <Button Classes="Flat icon-action"
+                                            Command="{ReflectionBinding DataContext.DeleteStudentCommand, ElementName=StudentPageRoot}"
+                                            CommandParameter="{Binding}"
+                                            ToolTip.Tip="删除">
+                                        <material:MaterialIcon Width="17" Height="17" Kind="DeleteOutline" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- 分页命令调用 DataGridCollectionView 的 MoveTo...Page API。 -->
+        <Grid Grid.Row="3" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="18">
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="{DynamicResource SukiLowText}"
+                       Text="{Binding PageSummary}" />
+
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                <TextBlock VerticalAlignment="Center" Text="每页" />
+                <ComboBox Width="100"
+                          ItemsSource="{Binding PageSizeOptions}"
+                          SelectedIndex="{Binding SelectedPageSizeIndex, Mode=TwoWay}" />
+                <TextBlock VerticalAlignment="Center" Text="条" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                <Button MinWidth="78"
+                        Height="34"
+                        Padding="9,4"
+                        Command="{Binding PreviousPageCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="3">
+                        <material:MaterialIcon Width="15" Height="15" Kind="ChevronLeft" />
+                        <TextBlock VerticalAlignment="Center" FontSize="13" Text="上一页" />
+                    </StackPanel>
+                </Button>
+                <Button MinWidth="78"
+                        Height="34"
+                        Padding="9,4"
+                        Command="{Binding NextPageCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="3">
+                        <TextBlock VerticalAlignment="Center" FontSize="13" Text="下一页" />
+                        <material:MaterialIcon Width="15" Height="15" Kind="ChevronRight" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

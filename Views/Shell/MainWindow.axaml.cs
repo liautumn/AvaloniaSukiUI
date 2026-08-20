@@ -1,6 +1,6 @@
 using SukiUI.Controls;
 
-namespace AvaloniaSukiUI.Views;
+namespace AvaloniaSukiUI.Views.Shell;
 
 public partial class MainWindow : SukiWindow
 {

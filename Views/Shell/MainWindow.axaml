@@ -1,0 +1,70 @@
+<suki:SukiWindow x:Class="AvaloniaSukiUI.Views.Shell.MainWindow"
+                 xmlns="https://github.com/avaloniaui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                 xmlns:pageVm="using:AvaloniaSukiUI.ViewModels.Pages"
+                 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                 xmlns:vm="using:AvaloniaSukiUI.ViewModels.Shell"
+                 x:DataType="vm:MainWindowViewModel"
+                 Title="AvaloniaSukiUI"
+                 Width="1280"
+                 Height="780"
+                 MinWidth="900"
+                 MinHeight="600"
+                 CanResize="True"
+                 CanFullScreen="True"
+                 Icon="/Assets/avalonia-logo.ico">
+    <!-- 弹窗 Host 位于窗口最上层，供整个应用共用。 -->
+    <suki:SukiWindow.Hosts>
+        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
+    </suki:SukiWindow.Hosts>
+
+    <suki:SukiWindow.LogoContent>
+        <material:MaterialIcon Width="20"
+                               Height="20"
+                               Foreground="{DynamicResource SukiPrimaryColor}"
+                               Kind="PaletteOutline" />
+    </suki:SukiWindow.LogoContent>
+
+    <suki:SukiWindow.RightWindowTitleBarControls>
+        <Button Classes="WindowControlsButton"
+                Command="{Binding OpenThemeSettingsCommand}"
+                ToolTip.Tip="外观设置">
+            <material:MaterialIcon Width="18"
+                                   Height="18"
+                                   Foreground="{DynamicResource SukiText}"
+                                   Kind="Cog" />
+        </Button>
+    </suki:SukiWindow.RightWindowTitleBarControls>
+
+    <!-- SukiSideMenu 同时负责左侧导航和右侧页面内容。 -->
+    <suki:SukiSideMenu IsSearchEnabled="False"
+                       IsMenuExpanded="True"
+                       IsSelectedItemContentMovable="False"
+                       IsToggleButtonVisible="False"
+                       ItemsSource="{Binding Pages}"
+                       OpenPaneLength="240"
+                       SelectedItem="{Binding ActivePage, Mode=TwoWay}">
+        <suki:SukiSideMenu.ItemTemplate>
+            <DataTemplate DataType="pageVm:PageViewModelBase">
+                <suki:SukiSideMenuItem Classes="Compact" Header="{Binding Title}">
+                    <suki:SukiSideMenuItem.Icon>
+                        <material:MaterialIcon Width="20" Height="20" Kind="{Binding Icon}" />
+                    </suki:SukiSideMenuItem.Icon>
+                </suki:SukiSideMenuItem>
+            </DataTemplate>
+        </suki:SukiSideMenu.ItemTemplate>
+
+        <suki:SukiSideMenu.HeaderContent>
+            <StackPanel Margin="22,14,22,22" Spacing="3">
+                <TextBlock FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="AvaloniaSukiUI" />
+                <TextBlock FontSize="12"
+                           Foreground="{DynamicResource SukiLowText}"
+                           Text="桌面应用" />
+            </StackPanel>
+        </suki:SukiSideMenu.HeaderContent>
+
+    </suki:SukiSideMenu>
+</suki:SukiWindow>
