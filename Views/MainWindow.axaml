@@ -1,78 +1,14 @@
 <suki:SukiWindow x:Class="AvaloniaSukiUI.Views.MainWindow"
                  xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:vm="using:AvaloniaSukiUI.ViewModels"
-                 xmlns:content="using:SukiUI.Content"
                  xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                 x:DataType="vm:MainViewModel"
-                 Title="SukiUI 组件展厅"
-                 Width="1440"
-                 Height="900"
-                 MinWidth="1050"
-                 MinHeight="680"
+                 Title="AvaloniaSukiUI"
+                 Width="1280"
+                 Height="780"
+                 MinWidth="950"
+                 MinHeight="600"
                  CanResize="True"
                  CanFullScreen="True"
                  Icon="/Assets/avalonia-logo.ico">
-    <suki:SukiWindow.Hosts>
-        <suki:SukiToastHost Manager="{Binding ToastManager}" />
-        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
-    </suki:SukiWindow.Hosts>
-
-    <suki:SukiWindow.LogoContent>
-        <PathIcon Width="20" Height="20" Data="{x:Static content:Icons.Star}"
-                  Foreground="{DynamicResource SukiPrimaryColor}" />
-    </suki:SukiWindow.LogoContent>
-
-    <suki:SukiWindow.MenuItems>
-        <MenuItem Header="主题">
-            <MenuItem Header="切换明暗模式" Command="{Binding ToggleBaseThemeCommand}" />
-            <MenuItem Header="信息通知" Command="{Binding ShowInfoToastCommand}" />
-            <MenuItem Header="打开对话框" Command="{Binding OpenDialogCommand}" />
-        </MenuItem>
-    </suki:SukiWindow.MenuItems>
-
-    <!-- SukiSideMenu 自带搜索、折叠和过渡内容区域。 -->
-    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}"
-                       SelectedItem="{Binding ActivePage, Mode=TwoWay}"
-                       IsSearchEnabled="True"
-                       IsSelectedItemContentMovable="False"
-                       OpenPaneLength="260">
-        <suki:SukiSideMenu.ItemTemplate>
-            <DataTemplate>
-                <suki:SukiSideMenuItem Classes="Compact" Header="{Binding Title}">
-                    <suki:SukiSideMenuItem.Icon>
-                        <PathIcon Width="18" Height="18" Data="{Binding Icon}" />
-                    </suki:SukiSideMenuItem.Icon>
-                </suki:SukiSideMenuItem>
-            </DataTemplate>
-        </suki:SukiSideMenu.ItemTemplate>
-
-        <suki:SukiSideMenu.HeaderContent>
-            <StackPanel Margin="24,12,24,20" Spacing="4">
-                <TextBlock FontSize="22" FontWeight="DemiBold" Text="SukiUI" />
-                <TextBlock Foreground="{DynamicResource SukiLowText}" Text="组件展厅" />
-            </StackPanel>
-        </suki:SukiSideMenu.HeaderContent>
-
-        <suki:SukiSideMenu.FooterContent>
-            <StackPanel Margin="18,10" Spacing="10">
-                <TextBlock FontSize="12" Foreground="{DynamicResource SukiLowText}" Text="主题色" />
-                <ComboBox ItemsSource="{Binding ColorChoices}"
-                          SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
-                          HorizontalContentAlignment="Stretch">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate DataType="vm:ColorChoice">
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ToggleSwitch IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"
-                              Command="{Binding ToggleBaseThemeCommand}"
-                              OnContent="深色模式"
-                              OffContent="浅色模式" />
-                <TextBlock FontSize="11" Foreground="{DynamicResource SukiLowText}"
-                           Text="SukiUI 7.0.1 · Avalonia 12" />
-            </StackPanel>
-        </suki:SukiSideMenu.FooterContent>
-    </suki:SukiSideMenu>
+    <!-- 在此添加应用内容。 -->
 </suki:SukiWindow>
